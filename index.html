@@ -10,8 +10,10 @@
         body { font-family: sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 0; background: linear-gradient(135deg, #00B597, #007a65); }
         .player-card { background: rgba(255, 255, 255, 0.98); width: 100%; max-width: 420px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; padding: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         @media (min-width: 480px) { .player-card { min-height: auto; border-radius: 24px; padding: 30px; } }
-        /* Removed text-transform: uppercase here so it respects the exact case "VG Music" */
-        h1 { margin: 0 0 20px; color: #00B597; font-weight: 900; font-size: 2rem; letter-spacing: 2px; }
+        
+        /* Compact and bold heading */
+        h1 { margin: 0 0 15px; color: #00B597; font-weight: 900; font-size: 2rem; letter-spacing: -1px; line-height: 1; }
+        
         .album-art { width: 120px; height: 120px; background: linear-gradient(45deg, #007a65, #00B597, #33cdae); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 50px; color: #fff; box-shadow: 0 8px 16px rgba(0,181,151,0.3); animation: pulse 4s infinite alternate; }
         .album-art.paused { animation: none; transform: scale(1); }
         h2 { margin: 0 0 24px; color: #1f2937; font-size: 1.5rem; }
@@ -41,12 +43,15 @@
     <div class="player-card">
         <h1>VG Music</h1>
         <div class="album-art paused" id="album-art"><i class="fas fa-headphones"></i></div>
-        <h2 id="station-title">Bollywood 2010s</h2>
+        
+        <!-- Default text set to 1990s -->
+        <h2 id="station-title">Bollywood 1990s</h2>
 
         <div class="channel-grid">
-            <button class="channel-btn" data-name="Bollywood 1990s" data-url="https://drive.uber.radio/uber/bollywood1990s/icecast.audio"><i class="fas fa-tape"></i>1990s</button>
+            <!-- Active class moved to 1990s -->
+            <button class="channel-btn active" data-name="Bollywood 1990s" data-url="https://drive.uber.radio/uber/bollywood1990s/icecast.audio"><i class="fas fa-tape"></i>1990s</button>
             <button class="channel-btn" data-name="Bollywood 2000s" data-url="https://drive.uber.radio/uber/bollywood2000s/icecast.audio"><i class="fas fa-compact-disc"></i>2000s</button>
-            <button class="channel-btn active" data-name="Bollywood 2010s" data-url="https://drive.uber.radio/uber/bollywood2010s/icecast.audio"><i class="fas fa-guitar"></i>2010s</button>
+            <button class="channel-btn" data-name="Bollywood 2010s" data-url="https://drive.uber.radio/uber/bollywood2010s/icecast.audio"><i class="fas fa-guitar"></i>2010s</button>
             <button class="channel-btn" data-name="Bollywood Workout" data-url="https://drive.uber.radio/uber/bollywoodworkout/icecast.audio"><i class="fas fa-dumbbell"></i>Workout</button>
         </div>
 
@@ -60,8 +65,9 @@
             </div>
         </div>
 
+        <!-- Default stream URL set to 1990s -->
         <audio id="radio-player" crossorigin playsinline preload="none">
-            <source id="audio-source" src="https://drive.uber.radio/uber/bollywood2010s/icecast.audio" type="audio/mpeg">
+            <source id="audio-source" src="https://drive.uber.radio/uber/bollywood1990s/icecast.audio" type="audio/mpeg">
         </audio>
     </div>
 
