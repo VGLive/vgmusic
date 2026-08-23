@@ -5,41 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#4f46e5">
     <title>VG Music</title>
-    
-    <!-- Headphones Favicon matching theme color #4f46e5 -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%234f46e5' d='M256 80C149.9 80 62.4 159.4 49.6 262c9.4-3.8 19.6-6 30.4-6c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48c-44.2 0-80-35.8-80-80V256C0 114.6 114.6 0 256 0s256 114.6 256 256v144c0 44.2-35.8 80-80 80c-26.5 0-48-21.5-48-48V304c0-26.5 21.5-48 48-48c10.8 0 21 2.1 30.4 6C449.6 159.4 362.1 80 256 80z'/%3E%3C/svg%3E" />
-    
-    <!-- Added heavier font weights (800, 900) for the bold header -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root { 
             --primary: #4f46e5; --secondary: #7c3aed; --dark: #1f2937; --white: #ffffff; 
-            --border: #e5e7eb; --danger: #ef4444; --success: #10b981; --warning: #f59e0b; 
-            --bg: #f3f4f6;
+            --border: #e5e7eb; --danger: #ef4444; --bg: #f3f4f6;
         }
         * { box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--dark); line-height: 1.6; max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
-        
-        /* Updated Header Styles to be extra bold */
-        h1 { 
-            text-align: center; 
-            color: var(--primary); 
-            margin-bottom: 2rem; 
-            font-weight: 900; 
-            font-size: 28px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 12px; 
-        }
+        h1 { text-align: center; color: var(--primary); margin-bottom: 2rem; font-weight: 900; font-size: 28px; display: flex; align-items: center; justify-content: center; gap: 12px; }
         
         .player-card { background: linear-gradient(135deg, var(--primary), var(--secondary)); padding: 30px 20px; border-radius: 12px; text-align: center; color: var(--white); box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2); margin-bottom: 20px; position: relative; overflow: hidden; }
         .live-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.2); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
         .live-dot { width: 8px; height: 8px; background: var(--danger); border-radius: 50%; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.9; } 50% { transform: scale(1.3); opacity: 0.4; } 100% { transform: scale(0.95); opacity: 0.9; } }
-        .station-title { font-size: clamp(20px, 5vw, 26px); font-weight: 800; margin-bottom: 25px; word-break: break-word; }
+        @keyframes pulse { 0%, 100% { transform: scale(0.95); opacity: 0.9; } 50% { transform: scale(1.3); opacity: 0.4; } }
         
+        .station-title { font-size: clamp(20px, 5vw, 26px); font-weight: 800; margin-bottom: 25px; word-break: break-word; }
         .player-controls { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 20px; }
         .control-btn { background: rgba(255, 255, 255, 0.2); border: none; width: 50px; height: 50px; border-radius: 50%; color: var(--white); font-size: 18px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
         .control-btn:hover { background: rgba(255, 255, 255, 0.35); transform: scale(1.05); }
@@ -71,7 +54,6 @@
 </head>
 <body>
     <div class="tool-container">
-        <!-- Icon placed inline with the theme color -->
         <h1><i class="fas fa-headphones"></i> VG Music</h1>
 
         <div class="player-card">
@@ -79,15 +61,12 @@
                 <span class="live-dot" id="live-dot" style="display: none;"></span> 
                 <span id="status-text">Paused</span>
             </div>
-
             <div class="station-title" id="current-station-name">Select Music Station</div>
-
             <div class="player-controls">
-                <button class="control-btn" id="prev-btn" title="Previous Station"><i class="fas fa-backward-step"></i></button>
-                <button class="control-btn play-main-btn" id="play-pause-btn" title="Play / Pause"><i class="fas fa-play" id="play-icon"></i></button>
-                <button class="control-btn" id="next-btn" title="Next Station"><i class="fas fa-forward-step"></i></button>
+                <button class="control-btn" id="prev-btn"><i class="fas fa-backward-step"></i></button>
+                <button class="control-btn play-main-btn" id="play-pause-btn"><i class="fas fa-play" id="play-icon"></i></button>
+                <button class="control-btn" id="next-btn"><i class="fas fa-forward-step"></i></button>
             </div>
-
             <div class="volume-container">
                 <i class="fas fa-volume-low"></i>
                 <input type="range" min="0" max="1" step="0.05" value="0.8" class="volume-slider" id="volumeSlider">
@@ -109,113 +88,100 @@
             { title: "BOLLYWOOD HITS 4", icon: "fa-tape", file: "https://drive.uber.radio/uber/bollywood1990s/icecast.audio" }
         ];
 
-        let currentStationIndex = 0;
-        let isPlaying = false;
-        const audioElement = new Audio();
-        audioElement.preload = 'none';
+        let currentIdx = 0, isPlaying = false;
+        const audio = new Audio();
+        audio.preload = 'none';
 
-        const playPauseBtn = document.getElementById('play-pause-btn');
-        const playIcon = document.getElementById('play-icon');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const volumeSlider = document.getElementById('volumeSlider');
-        const currentStationName = document.getElementById('current-station-name');
-        const liveDot = document.getElementById('live-dot');
-        const statusText = document.getElementById('status-text');
-        const stationsGrid = document.getElementById('stationsGrid');
+        const dom = {
+            playBtn: document.getElementById('play-pause-btn'),
+            playIcon: document.getElementById('play-icon'),
+            prevBtn: document.getElementById('prev-btn'),
+            nextBtn: document.getElementById('next-btn'),
+            volSlider: document.getElementById('volumeSlider'),
+            title: document.getElementById('current-station-name'),
+            liveDot: document.getElementById('live-dot'),
+            statusText: document.getElementById('status-text'),
+            grid: document.getElementById('stationsGrid')
+        };
 
-        function renderStations() {
-            stationsGrid.innerHTML = '';
-            stations.forEach((station, index) => {
-                const item = document.createElement('div');
-                item.className = `station-item ${index === currentStationIndex ? 'active' : ''}`;
-                item.innerHTML = `
-                    <div class="station-icon"><i class="fas ${station.icon}"></i></div>
-                    <div class="station-info">
-                        <div class="station-name">${station.title}</div>
-                    </div>
-                `;
-                item.addEventListener('click', () => {
-                    currentStationIndex = index;
-                    loadAndPlayStation();
-                });
-                stationsGrid.appendChild(item);
-            });
-        }
-
-        function updateActiveStationUI() {
+        const updateUI = () => {
             document.querySelectorAll('.station-item').forEach((item, idx) => {
-                item.classList.toggle('active', idx === currentStationIndex);
+                item.classList.toggle('active', idx === currentIdx);
             });
-        }
+        };
 
-        function loadAndPlayStation() {
-            const station = stations[currentStationIndex];
-            currentStationName.textContent = station.title;
-            audioElement.src = station.file;
-            audioElement.load();
+        const loadAndPlay = () => {
+            const st = stations[currentIdx];
+            dom.title.textContent = st.title;
+            audio.src = st.file;
+            audio.load();
 
-            statusText.textContent = "Connecting...";
-            liveDot.style.display = "inline-block";
+            dom.statusText.textContent = "Connecting...";
+            dom.liveDot.style.display = "inline-block";
 
-            audioElement.play().then(() => {
+            audio.play().then(() => {
                 isPlaying = true;
-                playIcon.className = "fas fa-pause";
-                statusText.textContent = "LIVE STREAM";
-                liveDot.style.display = "inline-block";
-                updateActiveStationUI();
-            }).catch(error => {
-                console.error(error);
-                statusText.textContent = "Stream Error - Click Play";
+                dom.playIcon.className = "fas fa-pause";
+                dom.statusText.textContent = "LIVE STREAM";
+                dom.liveDot.style.display = "inline-block";
+                updateUI();
+            }).catch(e => {
+                dom.statusText.textContent = "Stream Error - Click Play";
                 isPlaying = false;
-                playIcon.className = "fas fa-play";
-                liveDot.style.display = "none";
+                dom.playIcon.className = "fas fa-play";
+                dom.liveDot.style.display = "none";
             });
-        }
+        };
 
-        playPauseBtn.addEventListener('click', () => {
-            if (!audioElement.src || audioElement.src === window.location.href) {
-                loadAndPlayStation();
-                return;
-            }
+        const renderStations = () => {
+            dom.grid.innerHTML = '';
+            stations.forEach((st, idx) => {
+                const div = document.createElement('div');
+                div.className = `station-item ${idx === currentIdx ? 'active' : ''}`;
+                div.innerHTML = `
+                    <div class="station-icon"><i class="fas ${st.icon}"></i></div>
+                    <div class="station-info"><div class="station-name">${st.title}</div></div>
+                `;
+                div.onclick = () => { currentIdx = idx; loadAndPlay(); };
+                dom.grid.appendChild(div);
+            });
+        };
 
+        dom.playBtn.onclick = () => {
+            if (!audio.src || audio.src === window.location.href) return loadAndPlay();
+            
             if (isPlaying) {
-                audioElement.pause();
+                audio.pause();
                 isPlaying = false;
-                playIcon.className = "fas fa-play";
-                statusText.textContent = "Paused";
-                liveDot.style.display = "none";
+                dom.playIcon.className = "fas fa-play";
+                dom.statusText.textContent = "Paused";
+                dom.liveDot.style.display = "none";
             } else {
-                statusText.textContent = "Connecting...";
-                audioElement.play().then(() => {
+                dom.statusText.textContent = "Connecting...";
+                audio.play().then(() => {
                     isPlaying = true;
-                    playIcon.className = "fas fa-pause";
-                    statusText.textContent = "LIVE STREAM";
-                    liveDot.style.display = "inline-block";
-                }).catch(err => {
-                    console.error(err);
-                    statusText.textContent = "Connection Failed";
-                });
+                    dom.playIcon.className = "fas fa-pause";
+                    dom.statusText.textContent = "LIVE STREAM";
+                    dom.liveDot.style.display = "inline-block";
+                }).catch(() => dom.statusText.textContent = "Connection Failed");
             }
-        });
+        };
 
-        prevBtn.addEventListener('click', () => {
-            currentStationIndex = (currentStationIndex - 1 + stations.length) % stations.length;
-            loadAndPlayStation();
-        });
+        dom.prevBtn.onclick = () => { 
+            currentIdx = (currentIdx - 1 + stations.length) % stations.length; 
+            loadAndPlay(); 
+        };
 
-        nextBtn.addEventListener('click', () => {
-            currentStationIndex = (currentStationIndex + 1) % stations.length;
-            loadAndPlayStation();
-        });
+        dom.nextBtn.onclick = () => { 
+            currentIdx = (currentIdx + 1) % stations.length; 
+            loadAndPlay(); 
+        };
 
-        volumeSlider.addEventListener('input', (e) => {
-            audioElement.volume = e.target.value;
-        });
+        dom.volSlider.oninput = e => audio.volume = e.target.value;
 
-        audioElement.volume = volumeSlider.value;
+        audio.volume = dom.volSlider.value;
         renderStations();
-        currentStationName.textContent = stations[0].title;
+        dom.title.textContent = stations[0].title;
     </script>
 </body>
 </html>
