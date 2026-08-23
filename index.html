@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#4f46e5">
-    <title>Live Radio - VG Online Tools</title>
+    <title>VG Music</title>
+    
+    <!-- Headphones Favicon matching theme color #4f46e5 -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%234f46e5' d='M256 80C149.9 80 62.4 159.4 49.6 262c9.4-3.8 19.6-6 30.4-6c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48c-44.2 0-80-35.8-80-80V256C0 114.6 114.6 0 256 0s256 114.6 256 256v144c0 44.2-35.8 80-80 80c-26.5 0-48-21.5-48-48V304c0-26.5 21.5-48 48-48c10.8 0 21 2.1 30.4 6C449.6 159.4 362.1 80 256 80z'/%3E%3C/svg%3E" />
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -75,7 +79,7 @@
                 <span id="status-text">Paused</span>
             </div>
 
-            <div class="station-title" id="current-station-name">Select a Station</div>
+            <div class="station-title" id="current-station-name">Select Music Station</div>
 
             <div class="player-controls">
                 <button class="control-btn" id="prev-btn" title="Previous Station"><i class="fas fa-backward-step"></i></button>
@@ -91,17 +95,17 @@
         </div>
 
         <div class="stations-card">
-            <div class="section-title"><i class="fas fa-headphones"></i> Choose Radio Station</div>
+            <div class="section-title"><i class="fas fa-headphones"></i> Select Music Station</div>
             <div class="stations-grid" id="stationsGrid"></div>
         </div>
     </div>
 
     <script>
         const stations = [
-            { title: "Bollywood Hits 1", icon: "fa-tape", file: "https://drive.uber.radio/uber/bollywood1990s/icecast.audio" },
-            { title: "Bollywood Hits 2", icon: "fa-compact-disc", file: "https://drive.uber.radio/uber/bollywood2000s/icecast.audio" },
-            { title: "Bollywood Hits 3", icon: "fa-guitar", file: "https://drive.uber.radio/uber/bollywood2010s/icecast.audio" },
-            { title: "Bollywood Workout", icon: "fa-dumbbell", file: "https://drive.uber.radio/uber/bollywoodworkout/icecast.audio" }
+            { title: "BOLLYWOOD HITS 1", icon: "fa-music", file: "https://drive.uber.radio/uber/bollywoodworkout/icecast.audio" },
+            { title: "BOLLYWOOD HITS 2", icon: "fa-guitar", file: "https://drive.uber.radio/uber/bollywood2010s/icecast.audio" },
+            { title: "BOLLYWOOD HITS 3", icon: "fa-compact-disc", file: "https://drive.uber.radio/uber/bollywood2000s/icecast.audio" },
+            { title: "BOLLYWOOD HITS 4", icon: "fa-tape", file: "https://drive.uber.radio/uber/bollywood1990s/icecast.audio" }
         ];
 
         let currentStationIndex = 0;
