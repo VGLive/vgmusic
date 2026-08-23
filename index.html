@@ -3,126 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VG Music</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%2300B597' d='M256 80C149.9 80 62.4 159.4 49.6 262c9.4-3.8 19.6-6 30.4-6c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48c-44.2 0-80-35.8-80-80V256C0 114.6 114.6 0 256 0s256 114.6 256 256v144c0 44.2-35.8 80-80 80c-26.5 0-48-21.5-48-48V304c0-26.5 21.5-48 48-48c10.8 0 21 2.1 30.4 6C449.6 159.4 362.1 80 256 80z'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <meta name="theme-color" content="#4f46e5">
+    <title>Live Radio - VG Online Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 0; background: linear-gradient(135deg, #00B597, #007a65); }
-        .player-card { background: rgba(255, 255, 255, 0.98); width: 100%; max-width: 420px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; padding: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        @media (min-width: 480px) { .player-card { min-height: auto; border-radius: 24px; padding: 30px; } }
+        :root { 
+            --primary: #4f46e5; --secondary: #7c3aed; --dark: #1f2937; --white: #ffffff; 
+            --border: #e5e7eb; --danger: #ef4444; --success: #10b981; --warning: #f59e0b; 
+            --bg: #f3f4f6;
+        }
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--dark); line-height: 1.6; max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
         
-        /* Compact and bold heading */
-        h1 { margin: 0 0 15px; color: #00B597; font-weight: 900; font-size: 2rem; letter-spacing: -1px; line-height: 1; }
+        /* Updated Header Styles */
+        h1 { 
+            text-align: center; 
+            color: var(--primary); 
+            margin-bottom: 2rem; 
+            font-weight: 700; 
+            font-size: 28px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 12px; 
+        }
         
-        .album-art { width: 120px; height: 120px; background: linear-gradient(45deg, #007a65, #00B597, #33cdae); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 50px; color: #fff; box-shadow: 0 8px 16px rgba(0,181,151,0.3); animation: pulse 4s infinite alternate; }
-        .album-art.paused { animation: none; transform: scale(1); }
-        h2 { margin: 0 0 24px; color: #1f2937; font-size: 1.5rem; }
-        .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 30px; }
-        .channel-btn { background: #f9fafb; border: 2px solid #e5e7eb; border-radius: 16px; padding: 14px 8px; cursor: pointer; font-weight: 600; color: #374151; transition: 0.2s; display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 0.85rem; }
-        .channel-btn i { font-size: 1.5rem; color: #00B597; transition: 0.2s; }
-        @media (hover: hover) { .channel-btn:hover { border-color: #00B597; background: #e6f8f5; transform: translateY(-2px); } }
-        .channel-btn.active { background: #00B597; border-color: #00B597; color: #fff; }
-        .channel-btn.active i { color: #fff; }
-        .custom-controls { display: flex; flex-direction: column; align-items: center; gap: 24px; }
-        .playback-controls { display: flex; align-items: center; justify-content: center; }
-        .play-btn { background: linear-gradient(45deg, #009980, #00B597); color: #fff; border: none; border-radius: 50%; width: 75px; height: 75px; font-size: 1.8rem; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,181,151,0.4); transition: 0.2s; -webkit-tap-highlight-color: transparent; }
-        .play-btn:active { transform: scale(0.95); }
-        @media (hover: hover) { .play-btn:hover { transform: scale(1.05); box-shadow: 0 6px 15px rgba(0,181,151,0.5); } }
-        .volume-controls { display: flex; align-items: center; gap: 12px; width: 100%; padding: 0 10px; box-sizing: border-box; }
-        .mute-btn { background: none; border: none; color: #4b5563; font-size: 1.2rem; cursor: pointer; width: 30px; -webkit-tap-highlight-color: transparent; }
-        @media (hover: hover) { .mute-btn:hover { color: #00B597; } }
-        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
-        input[type=range]:focus { outline: none; }
-        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; cursor: pointer; background: #e5e7eb; border-radius: 3px; }
-        input[type=range]::-webkit-slider-thumb { height: 18px; width: 18px; border-radius: 50%; background: #00B597; cursor: pointer; -webkit-appearance: none; margin-top: -6px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        audio { display: none; }
-        @keyframes pulse { to { transform: scale(1.05); } }
+        .player-card { background: linear-gradient(135deg, var(--primary), var(--secondary)); padding: 30px 20px; border-radius: 12px; text-align: center; color: var(--white); box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2); margin-bottom: 20px; position: relative; overflow: hidden; }
+        .live-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.2); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+        .live-dot { width: 8px; height: 8px; background: var(--danger); border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.9; } 50% { transform: scale(1.3); opacity: 0.4; } 100% { transform: scale(0.95); opacity: 0.9; } }
+        .station-title { font-size: clamp(20px, 5vw, 26px); font-weight: 800; margin-bottom: 25px; word-break: break-word; }
+        
+        .player-controls { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 20px; }
+        .control-btn { background: rgba(255, 255, 255, 0.2); border: none; width: 50px; height: 50px; border-radius: 50%; color: var(--white); font-size: 18px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+        .control-btn:hover { background: rgba(255, 255, 255, 0.35); transform: scale(1.05); }
+        .play-main-btn { width: 70px; height: 70px; background: var(--white); color: var(--primary); font-size: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+        .play-main-btn:hover { background: #f8fafc; color: var(--secondary); }
+        
+        .volume-container { display: flex; align-items: center; justify-content: center; gap: 10px; max-width: 200px; margin: 0 auto; opacity: 0.9; font-size: 14px; }
+        .volume-slider { -webkit-appearance: none; width: 100%; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.3); outline: none; }
+        .volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--white); cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        
+        .stations-card { background: var(--white); padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid var(--border); margin-bottom: 20px; }
+        .section-title { font-size: 14px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .stations-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .station-item { background: #f9fafb; border: 1px solid var(--border); padding: 15px; border-radius: 10px; cursor: pointer; transition: 0.2s; text-align: left; display: flex; align-items: center; gap: 12px; }
+        .station-item:hover { border-color: var(--primary); background: #eff6ff; transform: translateY(-2px); }
+        .station-item.active { border-color: var(--primary); background: #eff6ff; box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15); }
+        .station-icon { width: 40px; height: 40px; background: #e0e7ff; color: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+        .station-info { overflow: hidden; }
+        .station-name { font-size: 14px; font-weight: 700; color: var(--dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        @media (max-width: 500px) {
+            body { margin: 1rem auto; padding: 0 0.5rem; }
+            h1 { font-size: 24px; margin-bottom: 1.5rem; }
+            .player-card { padding: 25px 15px; }
+            .stations-card { padding: 20px 15px; }
+            .stations-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-    <div class="player-card">
-        <h1>VG Music</h1>
-        <div class="album-art paused" id="album-art"><i class="fas fa-headphones"></i></div>
-        
-        <!-- Default text set to 1990s -->
-        <h2 id="station-title">Bollywood 1990s</h2>
+    <div class="tool-container">
+        <!-- Icon placed inline with the theme color -->
+        <h1><i class="fas fa-headphones"></i> VG Music</h1>
 
-        <div class="channel-grid">
-            <!-- Active class moved to 1990s -->
-            <button class="channel-btn active" data-name="Bollywood 1990s" data-url="https://drive.uber.radio/uber/bollywood1990s/icecast.audio"><i class="fas fa-tape"></i>1990s</button>
-            <button class="channel-btn" data-name="Bollywood 2000s" data-url="https://drive.uber.radio/uber/bollywood2000s/icecast.audio"><i class="fas fa-compact-disc"></i>2000s</button>
-            <button class="channel-btn" data-name="Bollywood 2010s" data-url="https://drive.uber.radio/uber/bollywood2010s/icecast.audio"><i class="fas fa-guitar"></i>2010s</button>
-            <button class="channel-btn" data-name="Bollywood Workout" data-url="https://drive.uber.radio/uber/bollywoodworkout/icecast.audio"><i class="fas fa-dumbbell"></i>Workout</button>
+        <div class="player-card">
+            <div class="live-badge" id="live-status">
+                <span class="live-dot" id="live-dot" style="display: none;"></span> 
+                <span id="status-text">Paused</span>
+            </div>
+
+            <div class="station-title" id="current-station-name">Select a Station</div>
+
+            <div class="player-controls">
+                <button class="control-btn" id="prev-btn" title="Previous Station"><i class="fas fa-backward-step"></i></button>
+                <button class="control-btn play-main-btn" id="play-pause-btn" title="Play / Pause"><i class="fas fa-play" id="play-icon"></i></button>
+                <button class="control-btn" id="next-btn" title="Next Station"><i class="fas fa-forward-step"></i></button>
+            </div>
+
+            <div class="volume-container">
+                <i class="fas fa-volume-low"></i>
+                <input type="range" min="0" max="1" step="0.05" value="0.8" class="volume-slider" id="volumeSlider">
+                <i class="fas fa-volume-high"></i>
+            </div>
         </div>
 
-        <div class="custom-controls">
-            <div class="playback-controls">
-                <button class="play-btn" id="play-btn"><i class="fas fa-play" id="play-icon"></i></button>
-            </div>
-            <div class="volume-controls">
-                <button class="mute-btn" id="mute-btn"><i class="fas fa-volume-up" id="mute-icon"></i></button>
-                <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
-            </div>
+        <div class="stations-card">
+            <div class="section-title"><i class="fas fa-headphones"></i> Choose Radio Station</div>
+            <div class="stations-grid" id="stationsGrid"></div>
         </div>
-
-        <!-- Default stream URL set to 1990s -->
-        <audio id="radio-player" crossorigin playsinline preload="none">
-            <source id="audio-source" src="https://drive.uber.radio/uber/bollywood1990s/icecast.audio" type="audio/mpeg">
-        </audio>
     </div>
 
     <script>
-        const audio = document.getElementById('radio-player');
-        const source = document.getElementById('audio-source');
-        const title = document.getElementById('station-title');
-        const art = document.getElementById('album-art');
-        const playBtn = document.getElementById('play-btn');
+        const stations = [
+            { title: "Bollywood Hits 1", icon: "fa-tape", file: "https://drive.uber.radio/uber/bollywood1990s/icecast.audio" },
+            { title: "Bollywood Hits 2", icon: "fa-compact-disc", file: "https://drive.uber.radio/uber/bollywood2000s/icecast.audio" },
+            { title: "Bollywood Hits 3", icon: "fa-guitar", file: "https://drive.uber.radio/uber/bollywood2010s/icecast.audio" },
+            { title: "Bollywood Workout", icon: "fa-dumbbell", file: "https://drive.uber.radio/uber/bollywoodworkout/icecast.audio" }
+        ];
+
+        let currentStationIndex = 0;
+        let isPlaying = false;
+        const audioElement = new Audio();
+        audioElement.preload = 'none';
+
+        const playPauseBtn = document.getElementById('play-pause-btn');
         const playIcon = document.getElementById('play-icon');
-        const muteBtn = document.getElementById('mute-btn');
-        const muteIcon = document.getElementById('mute-icon');
-        const volSlider = document.getElementById('volume-slider');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const currentStationName = document.getElementById('current-station-name');
+        const liveDot = document.getElementById('live-dot');
+        const statusText = document.getElementById('status-text');
+        const stationsGrid = document.getElementById('stationsGrid');
 
-        document.querySelectorAll('.channel-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelector('.channel-btn.active').classList.remove('active');
-                btn.classList.add('active');
-                title.textContent = btn.dataset.name;
-                source.src = btn.dataset.url;
-                audio.load();
-                audio.play();
+        function renderStations() {
+            stationsGrid.innerHTML = '';
+            stations.forEach((station, index) => {
+                const item = document.createElement('div');
+                item.className = `station-item ${index === currentStationIndex ? 'active' : ''}`;
+                item.innerHTML = `
+                    <div class="station-icon"><i class="fas ${station.icon}"></i></div>
+                    <div class="station-info">
+                        <div class="station-name">${station.title}</div>
+                    </div>
+                `;
+                item.addEventListener('click', () => {
+                    currentStationIndex = index;
+                    loadAndPlayStation();
+                });
+                stationsGrid.appendChild(item);
             });
+        }
+
+        function updateActiveStationUI() {
+            document.querySelectorAll('.station-item').forEach((item, idx) => {
+                item.classList.toggle('active', idx === currentStationIndex);
+            });
+        }
+
+        function loadAndPlayStation() {
+            const station = stations[currentStationIndex];
+            currentStationName.textContent = station.title;
+            audioElement.src = station.file;
+            audioElement.load();
+
+            statusText.textContent = "Connecting...";
+            liveDot.style.display = "inline-block";
+
+            audioElement.play().then(() => {
+                isPlaying = true;
+                playIcon.className = "fas fa-pause";
+                statusText.textContent = "LIVE STREAM";
+                liveDot.style.display = "inline-block";
+                updateActiveStationUI();
+            }).catch(error => {
+                console.error(error);
+                statusText.textContent = "Stream Error - Click Play";
+                isPlaying = false;
+                playIcon.className = "fas fa-play";
+                liveDot.style.display = "none";
+            });
+        }
+
+        playPauseBtn.addEventListener('click', () => {
+            if (!audioElement.src || audioElement.src === window.location.href) {
+                loadAndPlayStation();
+                return;
+            }
+
+            if (isPlaying) {
+                audioElement.pause();
+                isPlaying = false;
+                playIcon.className = "fas fa-play";
+                statusText.textContent = "Paused";
+                liveDot.style.display = "none";
+            } else {
+                statusText.textContent = "Connecting...";
+                audioElement.play().then(() => {
+                    isPlaying = true;
+                    playIcon.className = "fas fa-pause";
+                    statusText.textContent = "LIVE STREAM";
+                    liveDot.style.display = "inline-block";
+                }).catch(err => {
+                    console.error(err);
+                    statusText.textContent = "Connection Failed";
+                });
+            }
         });
 
-        playBtn.addEventListener('click', () => {
-            if (!audio.currentSrc) audio.load();
-            audio.paused ? audio.play() : audio.pause();
+        prevBtn.addEventListener('click', () => {
+            currentStationIndex = (currentStationIndex - 1 + stations.length) % stations.length;
+            loadAndPlayStation();
         });
 
-        audio.addEventListener('play', () => {
-            playIcon.className = 'fas fa-pause';
-            art.classList.remove('paused');
+        nextBtn.addEventListener('click', () => {
+            currentStationIndex = (currentStationIndex + 1) % stations.length;
+            loadAndPlayStation();
         });
 
-        audio.addEventListener('pause', () => {
-            playIcon.className = 'fas fa-play';
-            art.classList.add('paused');
+        volumeSlider.addEventListener('input', (e) => {
+            audioElement.volume = e.target.value;
         });
 
-        const updateVolIcon = () => {
-            muteIcon.className = audio.muted || audio.volume == 0 ? 'fas fa-volume-xmark' : audio.volume > 0.5 ? 'fas fa-volume-up' : 'fas fa-volume-down';
-        };
-
-        volSlider.addEventListener('input', e => {
-            audio.volume = e.target.value;
-            audio.muted = audio.volume === 0;
-            updateVolIcon();
-        });
-
-        muteBtn.addEventListener('click', () => {
-            audio.muted = !audio.muted;
-            volSlider.value = audio.muted ? 0 : audio.volume || 0.5;
-            updateVolIcon();
-        });
+        audioElement.volume = volumeSlider.value;
+        renderStations();
+        currentStationName.textContent = stations[0].title;
     </script>
 </body>
 </html>
