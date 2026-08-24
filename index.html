@@ -121,10 +121,10 @@
             audio.play().then(() => {
                 isPlaying = true;
                 playIcon.className = "fas fa-pause";
-                statusText.textContent = "LIVE STREAM";
+                statusText.textContent = "Playing...";
                 updateUI();
             }).catch(() => {
-                statusText.textContent = "Stream Error";
+                statusText.textContent = "Network Error";
                 isPlaying = false;
                 playIcon.className = "fas fa-play";
                 liveDot.style.display = "none";
@@ -152,9 +152,9 @@
                 audio.play().then(() => {
                     isPlaying = true;
                     playIcon.className = "fas fa-pause";
-                    statusText.textContent = "LIVE STREAM";
+                    statusText.textContent = "Playing...";
                     liveDot.style.display = "inline-block";
-                }).catch(() => statusText.textContent = "Connection Failed");
+                }).catch(() => statusText.textContent = "Network Error");
             }
         };
 
