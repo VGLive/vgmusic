@@ -13,6 +13,9 @@
             --primary: #4f46e5; 
             --secondary: #7c3aed; 
             --white: #fff; 
+            --dark: #1f2937;
+            --gray: #6b7280;
+            --light-gray: #e5e7eb;
             --danger: #ef4444; 
             --bg: #f3f4f6;
         }
@@ -20,6 +23,7 @@
         body { 
             font-family: 'Inter', sans-serif; 
             background: var(--bg); 
+            color: var(--dark);
             margin: 0; 
             padding: 1rem; 
             display: flex; 
@@ -27,70 +31,57 @@
             align-items: center; 
             min-height: 100vh; 
         }
-        
         .player-card { 
-            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
+            background: var(--white);
             padding: 35px 20px; 
-            border-radius: 12px; 
+            border-radius: 20px; 
             text-align: center; 
-            color: var(--white); 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
             width: 100%; 
             max-width: 400px; 
         }
-        
-        h1 { margin: 0 0 1.5rem 0; font-weight: 900; font-size: 28px; display: flex; align-items: center; justify-content: center; gap: 12px; }
-        
-        .live-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+        h1 { margin: 0 0 1.5rem 0; font-weight: 900; font-size: 28px; display: flex; align-items: center; justify-content: center; gap: 12px; color: var(--primary); }
+        .live-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--bg); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: var(--gray); }
         .live-dot { width: 8px; height: 8px; background: var(--danger); border-radius: 50%; animation: pulse 1.5s infinite; }
         @keyframes pulse { 
             0%, 100% { transform: scale(0.95); opacity: 0.9; } 
             50% { transform: scale(1.3); opacity: 0.4; } 
         }
-        
-        .station-icon-display { font-size: 40px; margin: 10px 0 30px; filter: drop-shadow(0 4px 15px rgba(0,0,0,0.2)); }
-        
+        .station-icon-display { font-size: 50px; margin: 10px 0 30px; color: var(--primary); filter: drop-shadow(0 4px 10px rgba(79,70,229,0.2)); }
         .controls { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 25px; }
-        .btn { background: rgba(255,255,255,0.2); border: none; width: 50px; height: 50px; border-radius: 50%; color: var(--white); font-size: 18px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
-        .btn:hover { background: rgba(255,255,255,0.35); transform: scale(1.05); }
-        .play-btn { width: 75px; height: 75px; background: var(--white); color: var(--primary); font-size: 26px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
-        .play-btn:hover { background: #f8fafc; color: var(--secondary); }
-        
-        .volume { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 30px; font-size: 14px; }
-        input[type=range] { -webkit-appearance: none; width: 160px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.3); outline: none; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--white); cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        
-        .channels { display: flex; align-items: center; justify-content: center; gap: 15px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.2); }
-        .channel { background: rgba(255,255,255,0.2); border: none; width: 45px; height: 45px; border-radius: 50%; color: var(--white); font-size: 18px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
-        .channel:hover { background: rgba(255,255,255,0.35); transform: translateY(-2px); }
-        .channel.active { background: var(--white); color: var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .btn { background: var(--bg); border: none; width: 50px; height: 50px; border-radius: 50%; color: var(--dark); font-size: 18px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+        .btn:hover { background: var(--light-gray); transform: scale(1.05); }
+        .play-btn { width: 75px; height: 75px; background: var(--primary); color: var(--white); font-size: 26px; box-shadow: 0 4px 15px rgba(79,70,229,0.3); }
+        .play-btn:hover { background: var(--secondary); color: var(--white); }
+        .volume { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 30px; font-size: 14px; color: var(--gray); }
+        input[type=range] { -webkit-appearance: none; width: 160px; height: 6px; border-radius: 3px; background: var(--light-gray); outline: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--primary); cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .channels { display: flex; align-items: center; justify-content: center; gap: 15px; padding-top: 25px; border-top: 1px solid var(--light-gray); }
+        .channel { background: var(--bg); border: none; width: 45px; height: 45px; border-radius: 50%; color: var(--gray); font-size: 18px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+        .channel:hover { background: var(--light-gray); color: var(--dark); transform: translateY(-2px); }
+        .channel.active { background: var(--primary); color: var(--white); box-shadow: 0 4px 10px rgba(79,70,229,0.3); }
     </style>
 </head>
 <body>
     <div class="player-card">
         <h1><i class="fas fa-headphones"></i> VG Music</h1>
-        
         <div class="live-badge">
             <span class="live-dot" id="live-dot" style="display: none;"></span> 
             <span id="status-text">Paused</span>
         </div>
-        
         <div class="station-icon-display" id="station-display">
             <i class="fas fa-music"></i>
         </div>
-        
         <div class="controls">
             <button class="btn" id="prev-btn"><i class="fas fa-backward-step"></i></button>
             <button class="btn play-btn" id="play-btn"><i class="fas fa-play" id="play-icon"></i></button>
             <button class="btn" id="next-btn"><i class="fas fa-forward-step"></i></button>
         </div>
-        
         <div class="volume">
             <i class="fas fa-volume-low"></i>
             <input type="range" min="0" max="1" step="0.05" value="0.9" id="vol">
             <i class="fas fa-volume-high"></i>
         </div>
-
         <div class="channels" id="grid"></div>
     </div>
 
@@ -111,24 +102,27 @@
 
         const updateUI = () => document.querySelectorAll('.channel').forEach((el, i) => el.classList.toggle('active', i === currentIdx));
 
-        const loadAndPlay = () => {
-            display.innerHTML = `<i class="fas ${stations[currentIdx].icon}"></i>`;
-            audio.src = stations[currentIdx].file;
-            audio.load();
+        const attemptPlay = () => {
             statusText.textContent = "Connecting...";
             liveDot.style.display = "inline-block";
-
             audio.play().then(() => {
                 isPlaying = true;
                 playIcon.className = "fas fa-pause";
                 statusText.textContent = "Playing...";
                 updateUI();
             }).catch(() => {
-                statusText.textContent = "Network Error";
                 isPlaying = false;
                 playIcon.className = "fas fa-play";
+                statusText.textContent = "Network Error";
                 liveDot.style.display = "none";
             });
+        };
+
+        const loadAndPlay = () => {
+            display.innerHTML = `<i class="fas ${stations[currentIdx].icon}"></i>`;
+            audio.src = stations[currentIdx].file;
+            audio.load();
+            attemptPlay();
         };
 
         stations.forEach((st, idx) => {
@@ -148,13 +142,7 @@
                 statusText.textContent = "Paused";
                 liveDot.style.display = "none";
             } else {
-                statusText.textContent = "Connecting...";
-                audio.play().then(() => {
-                    isPlaying = true;
-                    playIcon.className = "fas fa-pause";
-                    statusText.textContent = "Playing...";
-                    liveDot.style.display = "inline-block";
-                }).catch(() => statusText.textContent = "Network Error");
+                attemptPlay();
             }
         };
 
