@@ -104,11 +104,12 @@
 
         const attemptPlay = () => {
             statusText.textContent = "Connecting...";
-            liveDot.style.display = "inline-block";
+            liveDot.style.display = "none";
             audio.play().then(() => {
                 isPlaying = true;
                 playIcon.className = "fas fa-pause";
                 statusText.textContent = "Playing...";
+                liveDot.style.display = "inline-block";
                 updateUI();
             }).catch(() => {
                 isPlaying = false;
